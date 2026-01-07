@@ -1,38 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <title>Bootstrap 5 Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Gallery</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"> 
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --accent-color: #3498db;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Overlay transisi halaman */
+        #page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .bg-image {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%), 
+                              url('https://images.unsplash.com/photo-1628521155438-be081b0f6c32?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            align-items: flex-end; /* Konten di bawah */
+        }
+
+        .content-overlay {
+            width: 100%;
+            padding: 40px 30px;
+            color: white;
+        }
+
+        /* .headline {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        } */
+        
+        .headline {
+            /* Font gaya tanda tangan */
+            font-family: 'Mrs Saint Delafield', cursive;
+            font-size: 80px;
+            color: #FFF;
+            line-height: 0.5;
+            /* margin-bottom: -35px; */
+            /* Menarik teks bawah ke atas agar menyatu */
+            position: relative;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+
+        .headline em {
+            /* Font tegas untuk Gallery */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            /* text-transform: uppercase; */
+            color: #FFF;
+            border-top: 2px solid #FFF; /* Garis horizontal seperti di gambar */
+            padding-top: 5px;
+            display: inline-block;
+        }
+
+        .sub-text {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.5;
+            opacity: 0.9;
+            max-width: 85%;
+            margin-bottom: 40px;
+        }
+
+        /* Tombol dengan animasi denyut */
+        .btn-next {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            float: right;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-next:active {
+            transform: scale(0.9);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Efek gelombang di sekitar tombol */
+        @keyframes pulse-border {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .btn-next::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid white;
+            animation: pulse-border 2s infinite;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-fluid p-5 bg-primary text-white text-center">
-  <h1>My First Bootstrap Page</h1>
-  <p>Resize this responsive page to see the effect!</p> 
-</div>
-  
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    <div id="page-transition"></div>
+
+    <div class="bg-image">
+        <div class="content-overlay">
+            <div class="container-fluid p-0">
+                <h1 class="headline animate__animated animate__fadeInUp">
+                    AR Muttaqi<em>Art Gallery</em>
+                </h1>
+                
+                <p class="sub-text animate__animated animate__fadeInUp animate__delay-1s">
+                    Katalog digital koleksi pribadi:<br> karya seni dan warisan budaya
+                </p>
+                
+                <div class="animate__animated animate__fadeInRight animate__delay-2s">
+                    <a href="#" id="nextButton" class="btn-next">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>        
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
 </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.getElementById('nextButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Trigger transisi penutup
+            const transition = document.getElementById('page-transition');
+            transition.style.transform = 'translateY(0)';
+            
+            // Simulasi pindah halaman setelah animasi selesai (600ms)
+            setTimeout(() => {
+                //alert('Membuka halaman utama...');
+                // Di sini Anda bisa arahkan ke halaman lain:
+                window.location.href = 'gallery-card.html';
+                
+                // Untuk demo, kita kembalikan lagi transisinya
+                transition.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    transition.style.transform = 'translateY(100%)';
+                }, 600);
+            }, 700);
+        });
+    </script>
 </body>
 </html>
